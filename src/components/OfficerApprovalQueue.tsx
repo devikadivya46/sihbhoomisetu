@@ -213,11 +213,16 @@ export const OfficerApprovalQueue: React.FC<OfficerApprovalQueueProps> = ({
 
       {/* Official Certificate Modal */}
       {selectedCertificateRecord && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-lg w-full border border-slate-200 shadow-xl p-6 relative">
+        <div 
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSelectedCertificateRecord(null);
+          }}
+          className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 animate-in fade-in duration-150"
+        >
+          <div className="bg-white rounded-xl max-w-lg w-full border border-slate-200 shadow-2xl p-6 relative">
             <button
               onClick={() => setSelectedCertificateRecord(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-sm font-semibold p-1"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-sm font-semibold p-1 cursor-pointer"
             >
               ✕ Close
             </button>

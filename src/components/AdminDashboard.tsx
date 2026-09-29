@@ -67,6 +67,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       time: '11:42 AM',
       icon: CheckCircle2,
       iconColor: 'text-emerald-600 bg-emerald-50',
+      tab: 'ingestion',
     },
     {
       id: 2,
@@ -75,6 +76,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       time: '10:26 AM',
       icon: AlertTriangle,
       iconColor: 'text-amber-600 bg-amber-50',
+      tab: 'verifier',
     },
     {
       id: 3,
@@ -83,6 +85,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       time: '09:15 AM',
       icon: MapPin,
       iconColor: 'text-blue-600 bg-blue-50',
+      tab: 'cadastral_map',
     },
     {
       id: 4,
@@ -91,6 +94,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       time: 'Yesterday',
       icon: Award,
       iconColor: 'text-purple-600 bg-purple-50',
+      tab: 'officer',
     },
     {
       id: 5,
@@ -99,6 +103,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       time: 'Yesterday',
       icon: RefreshCw,
       iconColor: 'text-teal-600 bg-teal-50',
+      tab: 'retraining',
     },
   ];
 
@@ -157,7 +162,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
           {/* Slogan Floating Card (Top-Right) */}
           <div className="absolute right-4 sm:right-6 top-3 sm:top-4 z-20 pointer-events-auto">
-            <div className="bg-white/80 backdrop-blur-md px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-white/80 shadow-xs text-right">
+            <div className="bg-white/95 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl border border-slate-200/80 shadow-xs text-right">
               <span className="text-xs sm:text-sm font-bold text-slate-900 block tracking-tight">
                 सशक्त किसान | समृद्ध भारत
               </span>
@@ -245,60 +250,84 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* 2. FOUR CLEAN, SPACIOUS METRIC CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1 */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs">
+        <button
+          onClick={() => onNavigateTab('ingestion')}
+          className="text-left bg-white border border-slate-200 hover:border-blue-400 rounded-xl p-5 shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-slate-600">Total Records</span>
-            <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+            <span className="text-sm font-semibold text-slate-600 group-hover:text-blue-600 transition-colors">Total Records</span>
+            <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
               <FileText className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-4">
             <span className="text-3xl font-bold text-slate-900 font-mono">14,280</span>
-            <p className="text-xs text-slate-500 mt-1">Processed across 4 states</p>
+            <div className="flex items-center justify-between mt-1">
+              <p className="text-xs text-slate-500">Processed across 4 states</p>
+              <span className="text-[11px] font-semibold text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">Ingest →</span>
+            </div>
           </div>
-        </div>
+        </button>
 
         {/* Card 2 */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs">
+        <button
+          onClick={() => onNavigateTab('retraining')}
+          className="text-left bg-white border border-slate-200 hover:border-emerald-400 rounded-xl p-5 shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-slate-600">Accuracy Rate</span>
-            <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <span className="text-sm font-semibold text-slate-600 group-hover:text-emerald-600 transition-colors">Accuracy Rate</span>
+            <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-colors">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-4">
             <span className="text-3xl font-bold text-emerald-600 font-mono">96.4%</span>
-            <p className="text-xs text-slate-500 mt-1">Automatic verification</p>
+            <div className="flex items-center justify-between mt-1">
+              <p className="text-xs text-slate-500">Automatic verification</p>
+              <span className="text-[11px] font-semibold text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">Model →</span>
+            </div>
           </div>
-        </div>
+        </button>
 
         {/* Card 3 */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs">
+        <button
+          onClick={() => onNavigateTab('verifier')}
+          className="text-left bg-white border border-slate-200 hover:border-amber-400 rounded-xl p-5 shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-slate-600">Needs Review</span>
-            <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+            <span className="text-sm font-semibold text-slate-600 group-hover:text-amber-600 transition-colors">Needs Review</span>
+            <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition-colors">
               <AlertTriangle className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-4">
             <span className="text-3xl font-bold text-amber-600 font-mono">18.6%</span>
-            <p className="text-xs text-slate-500 mt-1">Awaiting staff check</p>
+            <div className="flex items-center justify-between mt-1">
+              <p className="text-xs text-slate-500">Awaiting staff check</p>
+              <span className="text-[11px] font-semibold text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">Review →</span>
+            </div>
           </div>
-        </div>
+        </button>
 
         {/* Card 4 */}
-        <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs">
+        <button
+          onClick={() => onNavigateTab('cadastral_map')}
+          className="text-left bg-white border border-slate-200 hover:border-teal-400 rounded-xl p-5 shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-slate-600">Map Match Rate</span>
-            <div className="w-9 h-9 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
+            <span className="text-sm font-semibold text-slate-600 group-hover:text-teal-600 transition-colors">Map Match Rate</span>
+            <div className="w-9 h-9 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center group-hover:bg-teal-600 group-hover:text-white transition-colors">
               <Map className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-4">
             <span className="text-3xl font-bold text-teal-600 font-mono">96.8%</span>
-            <p className="text-xs text-slate-500 mt-1">Matched to GIS boundaries</p>
+            <div className="flex items-center justify-between mt-1">
+              <p className="text-xs text-slate-500">Matched to GIS boundaries</p>
+              <span className="text-[11px] font-semibold text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity">Map →</span>
+            </div>
           </div>
-        </div>
+        </button>
       </div>
 
       {/* 3. TWO COLUMNS: STATE PROGRESS & RECENT ACTIVITY */}
@@ -369,7 +398,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {stateRecords.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                    <tr 
+                      key={idx} 
+                      onClick={() => onNavigateTab('cadastral_map')}
+                      className="hover:bg-blue-50/50 transition-colors cursor-pointer"
+                      title="Click to view cadastral map"
+                    >
                       <td className="py-3.5 pr-3">
                         <span className="font-semibold text-slate-900 block">
                           {row.state}
@@ -415,17 +449,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </button>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {recentActivities.map((act) => {
               const Icon = act.icon;
               return (
-                <div key={act.id} className="flex items-start gap-3">
-                  <div className={`w-8 h-8 rounded-lg ${act.iconColor} flex items-center justify-center shrink-0 mt-0.5`}>
+                <div 
+                  key={act.id} 
+                  onClick={() => onNavigateTab(act.tab)}
+                  className="flex items-start gap-3 p-2 -mx-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group"
+                  title={`Go to ${act.tab} workflow`}
+                >
+                  <div className={`w-8 h-8 rounded-lg ${act.iconColor} flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform`}>
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-semibold text-slate-900 truncate">
+                      <span className="text-sm font-semibold text-slate-900 group-hover:text-blue-700 transition-colors truncate">
                         {act.title}
                       </span>
                       <span className="text-xs text-slate-400 whitespace-nowrap shrink-0">

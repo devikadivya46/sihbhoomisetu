@@ -8,7 +8,8 @@ import {
   TrendingUp,
   LogOut,
   ChevronLeft, 
-  ChevronRight
+  ChevronRight,
+  X
 } from 'lucide-react';
 import { UserProfile } from '../types/landRecords';
 
@@ -74,24 +75,46 @@ export const SidebarSlider: React.FC<SidebarSliderProps> = ({
 
   return (
     <>
-      {/* Mobile Backdrop */}
+      {/* Mobile Backdrop - z-40 beneath the z-50 drawer */}
       {isMobileOpen && (
         <div
           onClick={onCloseMobile}
-          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs md:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/50 transition-opacity md:hidden"
+          aria-hidden="true"
         />
       )}
 
-      {/* Clean White Sidebar matching User Screenshot */}
+      {/* Clean White Sidebar */}
       <aside
-        className={`fixed md:sticky top-[58px] inset-y-0 left-0 z-30 flex flex-col bg-white text-slate-800 border-r border-slate-200 transition-all duration-200 select-none h-[calc(100vh-58px)] ${
-          isCollapsed ? 'w-[72px]' : 'w-[260px]'
+        className={`fixed md:sticky top-0 md:top-[58px] inset-y-0 left-0 z-50 md:z-30 flex flex-col bg-white text-slate-800 border-r border-slate-200 transition-transform duration-200 ease-in-out select-none h-full md:h-[calc(100vh-58px)] shadow-2xl md:shadow-none w-[280px] sm:w-[300px] ${
+          isCollapsed ? 'md:w-[72px]' : 'md:w-[260px]'
         } ${
           isMobileOpen
             ? 'translate-x-0'
             : '-translate-x-full md:translate-x-0'
         }`}
       >
+        {/* Mobile Drawer Header with Close Button */}
+        <div className="flex md:hidden items-center justify-between px-4 py-3.5 border-b border-slate-200 bg-slate-50">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+              BS
+            </div>
+            <div>
+              <h3 className="text-xs font-bold text-slate-900">BhoomiSetu ERP</h3>
+              <p className="text-[10px] text-slate-500 font-medium">Department Navigation</p>
+            </div>
+          </div>
+          <button
+            onClick={onCloseMobile}
+            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-200/70 transition-colors"
+            title="Close menu"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
         {/* Navigation Items */}
         <div className="flex-1 overflow-y-auto py-3 px-3 space-y-1">
           {navItems.map((item) => {

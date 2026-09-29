@@ -888,7 +888,7 @@ export const CadastralMapView: React.FC<CadastralMapViewProps> = ({
               </svg>
 
               {/* Clean Status Badge in corner */}
-              <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-xs text-white px-3 py-1.5 rounded-lg border border-slate-700 text-xs flex items-center gap-2 shadow-sm">
+              <div className="absolute bottom-3 left-3 bg-slate-900/90 text-white px-3 py-1.5 rounded-lg border border-slate-700 text-xs flex items-center gap-2 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
                 <span className="font-medium text-slate-200">184 Parcels Mapped</span>
               </div>

@@ -69,7 +69,9 @@ export default function App() {
       <GovernmentHeader
         currentUser={currentUser}
         onLogout={handleLogout}
+        isMobileMenuOpen={isMobileSliderOpen}
         onToggleMobileMenu={() => setIsMobileSliderOpen(!isMobileSliderOpen)}
+        onNavigate={(tab) => setActiveTab(tab)}
       />
 
       <div className="flex-1 flex min-w-0">

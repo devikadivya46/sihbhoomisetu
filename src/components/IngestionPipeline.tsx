@@ -40,6 +40,7 @@ export const IngestionPipeline: React.FC<IngestionPipelineProps> = ({
   const [processingStage, setProcessingStage] = useState<string>('');
   const [progressPercent, setProgressPercent] = useState(0);
   const [hasExtracted, setHasExtracted] = useState(true);
+  const [createdRecordId, setCreatedRecordId] = useState<string>('rec-up-001');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const getExtractedFields = () => {
@@ -222,6 +223,109 @@ export const IngestionPipeline: React.FC<IngestionPipelineProps> = ({
           setProgressPercent(100);
           setIsProcessing(false);
           setHasExtracted(true);
+
+          const currentFields = getExtractedFields();
+          const conf = currentFields.length > 0
+            ? Math.round(currentFields.reduce((acc, f) => acc + f.confidence, 0) / currentFields.length)
+            : 92;
+
+          const newId = `rec-ingested-${Date.now().toString().slice(-4)}`;
+          const owner = currentFields.find(f => f.fieldName.toLowerCase().includes('owner') || f.fieldName.toLowerCase().includes('landowner'))?.extractedText || 'Doulatram s/o Thamma';
+          const plot = currentFields.find(f => f.fieldName.toLowerCase().includes('survey') || f.fieldName.toLowerCase().includes('plot'))?.extractedText || '104/2';
+
+          const newRecord: LandRecord = {
+            id: newId,
+            fileNumber: `DOC-${Math.floor(1000 + Math.random() * 9000)}`,
+            village: selectedFile?.village || 'Sarul Farmlands',
+            district: selectedFile?.district || 'Nashik',
+            tehsil: 'Nashik',
+            state: 'Maharashtra',
+            documentType: selectedFile?.type === 'saatbaara' ? '7/12 Extract' : selectedFile?.type === 'jamabandi' ? 'Jamabandi' : 'RoR',
+            language: selectedFile?.type === 'apnilaw' ? 'mr' : 'hi',
+            scriptType: 'Handwritten',
+            overallConfidence: conf,
+            status: 'pending_verification',
+            originalFileName: selectedFile?.name || 'Uploaded Document',
+            uploadedAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
+            fields: [
+              {
+                key: 'owner_name',
+                labelEnglish: 'Landowner Name',
+                labelIndic: 'काश्तकार / खातेदार नाव',
+                extractedValue: owner,
+                standardizedValue: owner.replace('s/o', '').trim(),
+                confidence: 94,
+                isCorrected: false,
+                hasWarning: false,
+              },
+              {
+                key: 'father_spouse_name',
+                labelEnglish: 'Father / Spouse Name',
+                labelIndic: 'पिता / पतीचे नाव',
+                extractedValue: currentFields.find(f => f.fieldName.toLowerCase().includes('father'))?.extractedText || 'Thamma Ramatmal',
+                standardizedValue: 'Thamma Ramatmal',
+                confidence: 68,
+                isCorrected: false,
+                hasWarning: true,
+              },
+              {
+                key: 'khasra_number',
+                labelEnglish: 'Survey / Plot Number',
+                labelIndic: 'खसरा / गट क्रमांक',
+                extractedValue: plot,
+                standardizedValue: plot,
+                confidence: 96,
+                isCorrected: false,
+                hasWarning: false,
+              },
+              {
+                key: 'khatauni_number',
+                labelEnglish: 'Register Account Number',
+                labelIndic: 'खाता / नोंद वही क्रमांक',
+                extractedValue: '00184',
+                standardizedValue: '00184',
+                confidence: 98,
+                isCorrected: false,
+                hasWarning: false,
+              },
+              {
+                key: 'plot_area',
+                labelEnglish: 'Total Plot Area',
+                labelIndic: 'क्षेत्रफळ (हेक्टर)',
+                extractedValue: '1.42',
+                standardizedValue: '1.42',
+                confidence: 90,
+                isCorrected: false,
+                hasWarning: false,
+              },
+              {
+                key: 'tehsil',
+                labelEnglish: 'Tehsil',
+                labelIndic: 'तहसील / तालुका',
+                extractedValue: 'Nashik',
+                standardizedValue: 'Nashik',
+                confidence: 95,
+                isCorrected: false,
+                hasWarning: false,
+              },
+            ],
+            boundingBoxes: [],
+            spatialValidation: {
+              isMatched: true,
+              rorStatedAreaHectares: 1.42,
+              cadastralSurveyAreaHectares: 1.416,
+              areaDeltaHectares: -0.004,
+              discrepancyPercentage: 0.28,
+              boundaryOverlapDetected: false,
+              khasraParcelMatch: true,
+              gisParcelId: 'MH-NSK-SRL-104',
+              surveyCoordinates: [19.9975, 73.7898],
+              recommendation: 'Auto-Approve',
+            },
+          };
+
+          onIngestComplete(newRecord);
+          setCreatedRecordId(newId);
         }, 500);
       }, 600);
     }, 600);
@@ -442,8 +546,8 @@ export const IngestionPipeline: React.FC<IngestionPipelineProps> = ({
                 1 field flagged for quick review.
               </span>
               <button
-                onClick={() => onOpenRecordInVerifier('rec-up-001')}
-                className="px-4 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors flex items-center gap-1.5 shadow-sm"
+                onClick={() => onOpenRecordInVerifier(createdRecordId)}
+                className="px-4 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors flex items-center gap-1.5 shadow-sm cursor-pointer"
               >
                 <span>Open in Review Panel</span>
                 <ArrowRight className="w-3.5 h-3.5" />
