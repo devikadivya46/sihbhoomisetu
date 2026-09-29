@@ -1,0 +1,6 @@
+{
+  "name": "BhoomiSetu ERP - Land Record Digitization & Validation",
+  "description": "Intelligent Land Record Digitization and Cadastral GIS Validation ERP for Department of Land Resources (DoLR), Government of India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
