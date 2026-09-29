@@ -238,7 +238,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           {/* Headline & Description */}
           <div className="max-w-xl mt-4 sm:mt-5">
             <h1 className="text-xl sm:text-2xl lg:text-[26px] font-bold text-slate-900 tracking-tight leading-snug">
-              Intelligent Land Record Digitization &amp; Cadastral Validation ERP
+              Intelligent Land Record Digitization &amp; Cadastral Validation
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mt-2 font-normal">
               Digitizing historical land records, validating cadastral maps and ensuring accurate land ownership for a transparent and secure tomorrow.

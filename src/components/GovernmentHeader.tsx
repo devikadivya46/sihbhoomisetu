@@ -177,7 +177,7 @@ export const GovernmentHeader: React.FC<GovernmentHeaderProps> = ({
                   <div className="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between">
                     <div>
                       <h3 className="text-xs font-bold text-slate-900">Notifications</h3>
-                      <p className="text-[10px] text-slate-500">Live ERM & Cadastral Updates</p>
+                      <p className="text-[10px] text-slate-500">Live Cadastral &amp; Land Record Updates</p>
                     </div>
                     {unreadCount > 0 && (
                       <button

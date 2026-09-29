@@ -98,10 +98,10 @@ export const SidebarSlider: React.FC<SidebarSliderProps> = ({
         <div className="flex md:hidden items-center justify-between px-4 py-3.5 border-b border-slate-200 bg-slate-50">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-              BS
+              LR
             </div>
             <div>
-              <h3 className="text-xs font-bold text-slate-900">BhoomiSetu ERP</h3>
+              <h3 className="text-xs font-bold text-slate-900">Land Records Portal</h3>
               <p className="text-[10px] text-slate-500 font-medium">Department Navigation</p>
             </div>
           </div>
